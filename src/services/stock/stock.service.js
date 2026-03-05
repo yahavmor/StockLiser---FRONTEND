@@ -7,6 +7,6 @@ export const StockService = {
 
 }
 
-function searchStock(){
-
+function searchStock(value){
+    
 }
