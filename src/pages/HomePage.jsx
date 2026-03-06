@@ -7,19 +7,14 @@ export function HomePage() {
     const [searchTerm, setSearchTerm] = useState('')
     const [searchEnable, setSearchEnable] = useState(false)
 
-    function handleSearch(e){
+    async function handleSearch(e){
         e.preventDefault()
-        if(searchTerm.length<3) {
-            alertUser()
+        if(!StockService.isProbablySymbol(searchTerm.toUpperCase())) {
+            alert("Not a valid stock symbol format");
             return
         }
-        console.log(searchTerm)
-        StockService.searchStock(searchTerm)
+        const stock = await StockService.searchStock(searchTerm)
         setSearchTerm('')
-    }
-
-    function alertUser(){
-        console.log('please enter minimum 3 characters')
     }
 
     return (
