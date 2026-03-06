@@ -16,8 +16,7 @@ async function searchStock(value){
     const url = `https://finnhub.io/api/v1/quote?symbol=${value}&token=${key}`;
      try {
         const res = await axios.get(url)
-        console.log(res)
-        return res.data
+        return res.data.c
     } catch (err) {
         console.error('Error in searchArtist:', err)
         throw err

@@ -6,6 +6,7 @@ import { StockService } from "../services/stock/stock.service"
 export function HomePage() {
     const [searchTerm, setSearchTerm] = useState('')
     const [searchEnable, setSearchEnable] = useState(false)
+    const [stockPrice, setStockPrice] = useState('')
 
     async function handleSearch(e){
         e.preventDefault()
@@ -13,7 +14,9 @@ export function HomePage() {
             alert("Not a valid stock symbol format");
             return
         }
-        const stock = await StockService.searchStock(searchTerm)
+        let stock = await StockService.searchStock(searchTerm)
+        if(!stock) alert('Pick a real stock')
+        setStockPrice(stock)  
         setSearchTerm('')
     }
 
@@ -34,8 +37,12 @@ export function HomePage() {
                     <button>Search</button>
                 </form>
 
-                <div className="stock-preview">
-                </div>
+                {stockPrice&&(
+                        <div className="stock-preview">
+                        <h3>Current stock price : {stockPrice}$</h3>
+                        </div>
+                    )
+                }
             </main>
             
         </div>
