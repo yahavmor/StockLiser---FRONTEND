@@ -1,3 +1,17 @@
-.page-header{
-    text-align: center;
+.login-page{
+    margin: 50px;
+    display: grid;
+    grid-template-rows: 1fr 6fr ;
+    place-items: center;
+    background-color: rgb(119, 72, 11);
+    height: 70vh;
+}
+
+.login-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.login-page form input{
+    width: 400px;
 }

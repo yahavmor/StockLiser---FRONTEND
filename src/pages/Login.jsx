@@ -1,15 +1,30 @@
 import React from "react"
-
-
+import { useForm } from "react-hook-form"
 
 export function Login(){
+
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: {errors},  
+    } = useForm()
+
+     const onSubmit = (data) => console.log(data)
+
+    console.log(watch("example"))
+
+
     return(
         <div className="login-page">
             <h1 className="page-header">Login Form</h1>
-            <section className="box-info">
-                <label>Username:</label>
-                <input type="text" placeholder=""/>
-            </section>
+            <form onSubmit={handleSubmit(onSubmit)} className="box-info">
+                <input className="input-username" placeholder="username" {...register("username")} />
+                <input className="input-password" placeholder="password" type="password" {...register("password", { required: true })} />
+                {errors.exampleRequired && <span>This field is required</span>}
+                <button type="submit">Login</button>
+            </form>
         </div>
     )
 }
