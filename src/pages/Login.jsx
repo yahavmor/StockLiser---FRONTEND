@@ -1,8 +1,14 @@
 import React from "react"
 import { useForm } from "react-hook-form"
 import {saveToStorage} from "../services/LocalStorage"
+import { useSelector } from "react-redux"
+
+
+
 
 export function Login(){
+    const user = useSelector(state => state.userModule.user)
+    console.log(user)
 
 
     const {
