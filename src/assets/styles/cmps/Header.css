@@ -1,7 +1,11 @@
 .nav-bar{
     padding: 10px;
-
 }
 .nav-info{
-
+    display: grid;
+    grid-auto-flow: column;
+}
+.nav-info li{
+    list-style: none;
+    cursor: pointer;
 }

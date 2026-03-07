@@ -1,6 +1,7 @@
 /* pages */
 
 @import './pages/HomePage.css';
+@import './pages/Login.css';
 
 /* basics */
 @import './basics/MainLayout.css';

@@ -7,7 +7,6 @@ const BASE_URL = import.meta.env.PROD
 export const StockService = {
     searchStock,
     isProbablySymbol
-
 }
 
 async function searchStock(value){
