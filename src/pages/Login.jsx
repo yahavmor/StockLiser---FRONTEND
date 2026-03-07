@@ -1,5 +1,6 @@
 import React from "react"
 import { useForm } from "react-hook-form"
+import {saveToStorage} from "../services/LocalStorage"
 
 export function Login(){
 
@@ -11,10 +12,9 @@ export function Login(){
         formState: {errors},  
     } = useForm()
 
-     const onSubmit = (data) => console.log(data)
-
-    console.log(watch("example"))
-
+    const onSubmit = (data) =>{
+    saveToStorage('user-crad',data)
+    }
 
     return(
         <div className="login-page">
