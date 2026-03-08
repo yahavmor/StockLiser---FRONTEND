@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { loadFromStorage } from '../../services/LocalStorage'
+
 
 const initialState = {
-  user: null
+  user: loadFromStorage('user-crad')
 }
 
 const userSlice = createSlice({
@@ -16,6 +18,5 @@ const userSlice = createSlice({
     }
   }
 })
-
 export const { setUser, clearUser } = userSlice.actions
 export default userSlice.reducer

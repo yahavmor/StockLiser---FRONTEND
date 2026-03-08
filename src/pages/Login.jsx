@@ -1,15 +1,15 @@
 import React from "react"
 import { useForm } from "react-hook-form"
 import {saveToStorage} from "../services/LocalStorage"
-import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { setUser } from "../store/user/user.slice"
+
 
 
 
 
 export function Login(){
-    const user = useSelector(state => state.userModule.user)
-    console.log(user)
-
+    const dispatch = useDispatch()
 
     const {
         register,
@@ -19,6 +19,7 @@ export function Login(){
     } = useForm()
 
     const onSubmit = (data) =>{
+    dispatch(setUser(data))
     saveToStorage('user-crad',data)
     }
 
