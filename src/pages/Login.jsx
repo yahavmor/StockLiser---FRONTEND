@@ -2,7 +2,7 @@ import React from "react"
 import { useForm } from "react-hook-form"
 import {saveToStorage} from "../services/LocalStorage"
 import { useDispatch } from "react-redux"
-import { setUser } from "../store/user/user.slice"
+import { setUser, clearUser } from "../store/user/user.slice"
 
 
 
