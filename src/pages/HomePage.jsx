@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { StockService } from "../services/stock/stock.service"
+import { Loader } from "../cmps/Loader"
 
 
 
@@ -7,8 +8,10 @@ export function HomePage() {
     const [searchTerm, setSearchTerm] = useState('')
     const [searchEnable, setSearchEnable] = useState(false)
     const [stockPrice, setStockPrice] = useState('')
+    const [loader,setLoader] = useState(false)
 
     async function handleSearch(e){
+        setLoader(true)
         e.preventDefault()
         if(!StockService.isProbablySymbol(searchTerm.toUpperCase())) {
             alert("Not a valid stock symbol format");
@@ -18,6 +21,7 @@ export function HomePage() {
         if(!stock) alert('Pick a real stock')
         setStockPrice(stock)  
         setSearchTerm('')
+        setLoader(false)
     }
 
     return (
@@ -27,7 +31,9 @@ export function HomePage() {
             </header>
             <main>
                 <p>Explore the stock market and manage your portfolio with ease.</p>
-                <form onSubmit={handleSearch}>
+
+
+                {(loader?<Loader/>:(<form onSubmit={handleSearch}>
                     <label>Search any stock:</label>
                     <input 
                         type="text"
@@ -35,7 +41,9 @@ export function HomePage() {
                         onChange={(e)=>{setSearchTerm(e.target.value)}}
                     />
                     <button>Search</button>
-                </form>
+                </form>)
+                )}
+
 
                 {stockPrice&&(
                         <div className="stock-preview">
