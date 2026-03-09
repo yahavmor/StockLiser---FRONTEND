@@ -1,8 +1,10 @@
-import React from "react"
+import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import {saveToStorage} from "../services/LocalStorage"
 import { useDispatch } from "react-redux"
 import { setUser, clearUser } from "../store/user/user.slice"
+import { useNavigate } from "react-router-dom"
+
 
 
 
@@ -10,6 +12,7 @@ import { setUser, clearUser } from "../store/user/user.slice"
 
 export function Login(){
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const {
         register,
@@ -21,6 +24,8 @@ export function Login(){
     const onSubmit = (data) =>{
     dispatch(setUser(data))
     saveToStorage('user-crad',data)
+    navigate('/')
+    
     }
 
     return(

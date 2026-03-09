@@ -1,7 +1,7 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { clearUser } from "../store/user/user.slice"
+import { Link, NavLink, redirect, useNavigate } from 'react-router-dom'
+import { clearUser, setUser } from "../store/user/user.slice"
 
 
 
@@ -10,6 +10,11 @@ import { clearUser } from "../store/user/user.slice"
 export function Header(){
     const user = useSelector(state=>state.userModule.user)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    function logOut(){
+        dispatch(clearUser())
+        navigate('/')
+    }
     return(
         <>
         <nav className="nav-bar">
@@ -23,10 +28,16 @@ export function Header(){
                 {!user&&(<NavLink to="/login">
                     <li>Login</li>
                 </NavLink>)}
-                {user&&(<NavLink to="/">
-                     <li>Hello {user.username}</li>
-                     <button onClick={()=>dispatch(clearUser())}>LogOut</button>
-                </NavLink>)}
+                {user && (
+                <>
+                    <NavLink to="/user">
+                    <li>Hello {user.username}</li>
+                    </NavLink>
+
+                    <button onClick={logOut}>LogOut</button>
+                </>
+                )}
+
                 
                 
             </ul>
