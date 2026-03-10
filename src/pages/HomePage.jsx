@@ -1,17 +1,22 @@
 import React, { useState } from "react"
 import { StockService } from "../services/stock/stock.service"
 import { Loader } from "../cmps/Loader"
+import { useDispatch, useSelector } from "react-redux"
+import { toggleLoader } from "../store/stock/stock.slice"
 
 
 
 export function HomePage() {
+    const loader = useSelector(state=>state.stockModule.loader)
+    const dispatch = useDispatch()
+
     const [searchTerm, setSearchTerm] = useState('')
     const [searchEnable, setSearchEnable] = useState(false)
     const [stockPrice, setStockPrice] = useState('')
-    const [loader,setLoader] = useState(false)
 
     async function handleSearch(e){
-        setLoader(true)
+        dispatch(toggleLoader(true))
+        
         e.preventDefault()
         if(!StockService.isProbablySymbol(searchTerm.toUpperCase())) {
             alert("Not a valid stock symbol format");
@@ -21,7 +26,7 @@ export function HomePage() {
         if(!stock) alert('Pick a real stock')
         setStockPrice(stock)  
         setSearchTerm('')
-        setLoader(false)
+        dispatch(toggleLoader(false))
     }
 
     return (

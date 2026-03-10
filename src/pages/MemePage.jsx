@@ -1,25 +1,34 @@
 import React, { useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { MemeService } from "../services/meme/meme"
+import { toggleLoader } from "../store/stock/stock.slice"
+import { Loader } from "../cmps/Loader"
+
 
 
 
 export function Meme(){
     const [meme,setMeme] = useState(null)
+    const dispatch = useDispatch()
+    const loader = useSelector(state=>state.stockModule.loader)
 
     async function generateMeme(){
+        dispatch(toggleLoader(true))
         const meme =await MemeService.fetchData('https://meme-api.com/gimme')
+        dispatch(toggleLoader(false))
         setMeme(meme)
     }
 
 
     return(
         <section className="meme-page">
-            <button className="meme-header" onClick={()=>{generateMeme()}}>Click for random meme</button>
+            <button className="meme-btn" onClick={()=>{generateMeme()}}>Click for random meme</button>
 
-            {meme&&(<div className="meme-box">
+            {(loader?<Loader/>:(meme&&
+            <div className="meme-box">
                 <img src={meme} alt="meme" />
-            </div>)}
+            </div>)
+            )}
         </section>
 
     )

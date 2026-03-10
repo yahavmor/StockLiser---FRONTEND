@@ -2,6 +2,7 @@
 
 @import './pages/HomePage.css';
 @import './pages/Login.css';
+@import './pages/MemePage.css';
 
 /* basics */
 @import './basics/MainLayout.css';
