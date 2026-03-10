@@ -4,6 +4,8 @@ import { setBgcColor, setColor } from "../store/user/user.slice"
 import { saveToStorage } from "../services/LocalStorage"
 import { MemeService } from "../services/meme/meme.service"
 import { MemeList } from "../cmps/MemeList"
+import { UserService } from "../services/user/user.service"
+
 
 
 
@@ -35,7 +37,7 @@ export function UserPage(){
     
     function savePrefs(e){
         e.preventDefault()
-        saveToStorage('user-prefs',prefs)
+        UserService.saveUserPrefs(prefs)
     }
     console.log(memes)
     return(

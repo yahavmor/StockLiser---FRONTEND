@@ -1,3 +1,4 @@
+
 export function loadFromStorage(key){
     const data = localStorage.getItem(key)
     if(data) return JSON.parse(data)

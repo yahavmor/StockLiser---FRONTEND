@@ -4,6 +4,7 @@ import {saveToStorage} from "../services/LocalStorage"
 import { useDispatch } from "react-redux"
 import { setUser, clearUser } from "../store/user/user.slice"
 import { useNavigate } from "react-router-dom"
+import { UserService } from "../services/user/user.service"
 
 
 
@@ -23,7 +24,7 @@ export function Login(){
 
     const onSubmit = (data) =>{
     dispatch(setUser(data))
-    saveToStorage('user-crad',data)
+    UserService.login(data)
     navigate('/')
     
     }

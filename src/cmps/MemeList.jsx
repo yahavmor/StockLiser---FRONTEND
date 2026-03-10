@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 
-export function MemeList({memes}){
-    console.log(memes)
+export function MemeList({memes=[]}){
     return(
         <section className="memes-list">
             <div className="gallery">
