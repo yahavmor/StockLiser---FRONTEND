@@ -28,8 +28,8 @@ export function Header(){
                 <NavLink to="/">
                 <li>Home</li>
                 </NavLink>
-                <NavLink to="/">
-                    <li>Stats</li>
+                <NavLink to="/meme">
+                    <li>Meme</li>
                 </NavLink>
                 {!user&&(<NavLink to="/login">
                     <li>Login</li>
