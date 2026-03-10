@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setBgcColor, setColor } from "../store/user/user.slice"
 import { saveToStorage } from "../services/LocalStorage"
 import { MemeService } from "../services/meme/meme.service"
+import { MemeList } from "../cmps/MemeList"
 
 
 
@@ -11,10 +12,9 @@ export function UserPage(){
     const user = useSelector(state=>state.userModule.user)
     const prefs = useSelector(state=>state.userModule.prefs)
     const dispatch = useDispatch()
-    const [memes,setMemes] = useState(null)
+    const [memes,setMemes] = useState([])
     useEffect(()=>{
         loadMemeGallery()
-
     },[])
     function loadMemeGallery(){
         const memes = MemeService.loadMemes()
@@ -37,6 +37,7 @@ export function UserPage(){
         e.preventDefault()
         saveToStorage('user-prefs',prefs)
     }
+    console.log(memes)
     return(
         <div className="user-page">
             <header>
@@ -49,9 +50,7 @@ export function UserPage(){
                 <input type="color" onChange={e=>{background(e)}} />
                 <button>done</button>
             </form>
-            <section className="meme-gallery">
-
-            </section>
+            <MemeList memes = {memes}/>
         </div>
     )
 

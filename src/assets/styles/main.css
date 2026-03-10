@@ -9,6 +9,7 @@
 
 /* cmps */
 @import './cmps/Header.css';
+@import './cmps/MemeList.css';
 
 /* vars */
 @import '/src/assets/styles/vars.css';
