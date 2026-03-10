@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { MemeService } from "../services/meme/meme"
+import { MemeService } from "../services/meme/meme.service"
 import { toggleLoader } from "../store/stock/stock.slice"
 import { Loader } from "../cmps/Loader"
 
@@ -18,6 +18,10 @@ export function Meme(){
         dispatch(toggleLoader(false))
         setMeme(meme)
     }
+    function onSaveMeme(){
+        MemeService.saveMeme(meme)
+        console.log('saved in storage')
+    }
 
 
     return(
@@ -27,6 +31,7 @@ export function Meme(){
             {(loader?<Loader/>:(meme&&
             <div className="meme-box">
                 <img src={meme} alt="meme" />
+                <button onClick={()=>onSaveMeme()}>Save meme</button>
             </div>)
             )}
         </section>

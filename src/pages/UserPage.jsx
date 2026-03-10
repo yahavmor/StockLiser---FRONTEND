@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setBgcColor, setColor } from "../store/user/user.slice"
 import { saveToStorage } from "../services/LocalStorage"
+import { MemeService } from "../services/meme/meme.service"
+
 
 
 
@@ -9,6 +11,15 @@ export function UserPage(){
     const user = useSelector(state=>state.userModule.user)
     const prefs = useSelector(state=>state.userModule.prefs)
     const dispatch = useDispatch()
+    const [memes,setMemes] = useState(null)
+    useEffect(()=>{
+        loadMemeGallery()
+
+    },[])
+    function loadMemeGallery(){
+        const memes = MemeService.loadMemes()
+        setMemes(memes)
+    }
     function background(e) {
         const preferedColor = e.target.value
         dispatch(setBgcColor(preferedColor))
@@ -38,6 +49,9 @@ export function UserPage(){
                 <input type="color" onChange={e=>{background(e)}} />
                 <button>done</button>
             </form>
+            <section className="meme-gallery">
+
+            </section>
         </div>
     )
 
