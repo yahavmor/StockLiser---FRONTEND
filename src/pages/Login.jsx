@@ -31,11 +31,9 @@ export function Login(){
             let user
             if (signUp) {
                 user = await UserService.signup(data)
-                console.log(user)
             } else {
                 user = await UserService.login(data)
-            }
-
+            }            
             dispatch(setUser(user))
             navigate('/')
         } catch (err) {

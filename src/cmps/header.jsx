@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link, NavLink, redirect, useNavigate } from 'react-router-dom'
 import { clearUser, setUser, clearPrefs } from "../store/user/user.slice"
 import { removeFromStorage } from "../services/LocalStorage"
+import { UserService } from "../services/user/user.service"
 
 
 
@@ -15,6 +16,7 @@ export function Header(){
     function logOut(){
         dispatch(clearUser())
         dispatch(clearPrefs())
+        UserService.logOut()
         removeFromStorage('user-crad')
         removeFromStorage('user-prefs')
         document.documentElement.style.setProperty('--bg-color', '')

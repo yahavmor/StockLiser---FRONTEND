@@ -8,7 +8,8 @@ export const UserService = {
     setInitialPrefs,
     login,
     saveUserPrefs,
-    signup
+    signup,
+    logOut
 }
 let user = {}
 
