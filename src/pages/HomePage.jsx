@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { StockService } from "../services/stock/stock.service"
 import { Loader } from "../cmps/Loader"
 import { useDispatch, useSelector } from "react-redux"
@@ -6,28 +6,49 @@ import { toggleLoader } from "../store/stock/stock.slice"
 
 
 
+
 export function HomePage() {
     const loader = useSelector(state=>state.stockModule.loader)
     const dispatch = useDispatch()
+    const inputRef = useRef()
 
     const [searchTerm, setSearchTerm] = useState('')
     const [searchEnable, setSearchEnable] = useState(false)
     const [stockPrice, setStockPrice] = useState('')
 
-    async function handleSearch(e){
-        dispatch(toggleLoader(true))
-        
+    function focusInput(){
+        inputRef.current?.focus()
+    }
+    
+    useEffect(() => {
+        if (!loader) focusInput()
+    }, [loader])
+
+    async function handleSearch(e) {
         e.preventDefault()
-        if(!StockService.isProbablySymbol(searchTerm.toUpperCase())) {
-            alert("Not a valid stock symbol format");
+        dispatch(toggleLoader(true))
+
+        if (!StockService.isProbablySymbol(searchTerm.toUpperCase())) {
+            alert("Not a valid stock symbol format")
+            setSearchTerm('')
+            dispatch(toggleLoader(false))
             return
         }
-        let stock = await StockService.searchStock(searchTerm)
-        if(!stock) alert('Pick a real stock')
-        setStockPrice(stock)  
+
+        const stock = await StockService.searchStock(searchTerm)
+
+        if (!stock) {
+            alert("Pick a real stock")
+            setSearchTerm('')
+            dispatch(toggleLoader(false))
+            return
+        }
+
+        setStockPrice(stock)
         setSearchTerm('')
         dispatch(toggleLoader(false))
     }
+
 
     return (
         <div className="home-page">
@@ -41,6 +62,7 @@ export function HomePage() {
                 {(loader?<Loader/>:(<form onSubmit={handleSearch}>
                     <label>Search any stock:</label>
                     <input 
+                        ref={inputRef}
                         type="text"
                         value={searchTerm}
                         onChange={(e)=>{setSearchTerm(e.target.value)}}
