@@ -8,9 +8,6 @@ import { Provider, useSelector } from 'react-redux'
 import { store } from './store/store.js'
 import { UserService } from './services/user/user.service.js'
 
-
-
-
 const prefs = store.getState().userModule.prefs
 UserService.setInitialPrefs(prefs)
 const root = ReactDOM.createRoot(document.getElementById('root'))
