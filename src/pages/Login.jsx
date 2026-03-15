@@ -5,12 +5,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { setUser, clearUser } from "../store/user/user.slice"
 import { useNavigate } from "react-router-dom"
 import { UserService } from "../services/user/user.service"
+import { AuthService } from "../services/auth/auth.service"
 import axios from "axios"
-
-
-
-
-
 
 
 export function Login(){
@@ -30,9 +26,9 @@ export function Login(){
         try {
             let user
             if (signUp) {
-                user = await UserService.signup(data)
+                user = await AuthService.signup(data)
             } else {
-                user = await UserService.login(data)
+                user = await AuthService.login(data)
             }            
             dispatch(setUser(user))
             navigate('/')

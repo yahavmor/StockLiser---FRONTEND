@@ -1,9 +1,11 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, NavLink, redirect, useNavigate } from 'react-router-dom'
-import { clearUser, setUser, clearPrefs } from "../store/user/user.slice"
-import { removeFromStorage } from "../services/LocalStorage"
-import { UserService } from "../services/user/user.service"
+import { clearUser, setUser, clearPrefs } from "../store/user/user.slice.js"
+import { removeFromStorage } from "../services/LocalStorage.js"
+import { UserService } from "../services/user/user.service.js"
+import { AuthService } from "../services/auth/auth.service.js"
+
 
 
 
@@ -16,7 +18,7 @@ export function Header(){
     function logOut(){
         dispatch(clearUser())
         dispatch(clearPrefs())
-        UserService.logOut()
+        AuthService.logOut()
         removeFromStorage('user-crad')
         removeFromStorage('user-prefs')
         document.documentElement.style.setProperty('--bg-color', '')
@@ -43,6 +45,11 @@ export function Header(){
                     </NavLink>
 
                     <button onClick={logOut}>LogOut</button>
+                </>
+                )}
+                {user && (
+                <>
+                    <NavLink to="/stock"> Discover Stocks </NavLink>
                 </>
                 )}
 
