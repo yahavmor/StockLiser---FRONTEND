@@ -3,6 +3,8 @@ import { StockService } from "../services/stock/stock.service"
 import { Loader } from "../cmps/Loader"
 import { useDispatch, useSelector } from "react-redux"
 import { toggleLoader } from "../store/stock/stock.slice"
+import { Navigate } from "react-router-dom"
+
 
 
 
@@ -49,6 +51,9 @@ export function StockWorld() {
         setStockPrice(stock)
         setSearchTerm('')
         dispatch(toggleLoader(false))
+    }
+     if (!user) {
+        return <Navigate to="/login" replace />
     }
 
 

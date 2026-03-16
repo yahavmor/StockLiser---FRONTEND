@@ -1,24 +1,38 @@
 import axios from "axios"
-import { loadFromStorage, saveToStorage } from "../LocalStorage"
-
+import { createRandomId } from "../util.service"
 
 export const MemeService = {
     fetchData,
     saveMeme,
-    loadMemes
+    getMemes,
+    displayMessage
 }
 
 async function fetchData(url){
     const res = await axios.get(url)
-    return res.data.url
-}
-function saveMeme(url){
-   let memesArr = loadFromStorage('user-memes') || []
-   memesArr.push(url)
-   saveToStorage('user-memes',memesArr)
-}
-function loadMemes(){
-    return loadFromStorage('user-memes')
+    return {
+        id: createRandomId(),
+        url: res.data.url
+    }
 }
 
+async function saveMeme(meme) {
+    const res = await axios.post(
+        'http://localhost:3030/api/meme/save',
+        meme, 
+        { withCredentials: true }
+    )
+    return res.data
+}
 
+async function getMemes() {
+    const res = await axios.get(
+        'http://localhost:3030/api/meme',
+        { withCredentials: true }
+    )
+    return res.data
+}
+
+function displayMessage(msg){
+    console.log(msg)
+}

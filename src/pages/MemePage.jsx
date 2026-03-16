@@ -11,6 +11,8 @@ export function Meme(){
     const [meme,setMeme] = useState(null)
     const dispatch = useDispatch()
     const loader = useSelector(state=>state.stockModule.loader)
+    const user = useSelector(state=>state.userModule.user)
+    
 
     async function generateMeme(){
         dispatch(toggleLoader(true))
@@ -18,10 +20,12 @@ export function Meme(){
         dispatch(toggleLoader(false))
         setMeme(meme)
     }
-    function onSaveMeme(){
-        MemeService.saveMeme(meme)
-        console.log('saved in storage')
+    
+    async function onSaveMeme(meme){
+        await MemeService.saveMeme(meme)
+        MemeService.displayMessage('Meme Saved')
     }
+
 
 
     return(
@@ -30,8 +34,8 @@ export function Meme(){
 
             {(loader?<Loader/>:(meme&&
             <div className="meme-box">
-                <img src={meme} alt="meme" />
-                <button onClick={()=>onSaveMeme()}>Save meme</button>
+                <img src={meme.url} alt="meme" />
+                <button onClick={()=>onSaveMeme(meme)}>Save meme</button>
             </div>)
             )}
         </section>
