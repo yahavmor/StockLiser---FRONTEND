@@ -8,6 +8,8 @@ import { HomePage } from './pages/HomePage'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { setUser } from './store/user/user.slice.js'
+import { MemeDetails } from './cmps/MemeDetails.jsx'
+
 
 
 
@@ -37,7 +39,8 @@ export function RootCmp() {
                     <Route path="/stock" element={<StockWorld/>} />
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/user" element={<UserPage/>}/>  
-                    <Route path="/meme" element={<Meme/>}/>  
+                    <Route path="/meme" element={<Meme/>}/>
+                    <Route path="/meme/:id" element={<MemeDetails/>}/>  
             </Routes>
         </> 
     )

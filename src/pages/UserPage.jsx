@@ -47,11 +47,9 @@ export function UserPage(){
         MemeService.displayMessage('Meme Has been deleted')
     }
 
+
     return(
         <div className="user-page">
-            {/* <header>
-                <h1>Prefernces of {user.username}</h1>
-            </header> */}
             <form className="perefernce-box" onSubmit={(e)=>{savePrefs(e)}}>
                 <label>Color</label>
                 <input type="color" onChange={e=>{color(e)}}/>
