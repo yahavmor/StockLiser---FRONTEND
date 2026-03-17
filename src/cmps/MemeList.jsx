@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 
-export function MemeList({memes=[]}){
-    return(
+export function MemeList({ memes = [], removeMeme }) {
+    return (
         <section className="memes-list">
             <div className="gallery">
-                {memes.map((meme, idx) => (
-                <img className="meme" key={idx} src={meme}></img>
+                {memes.map((meme) => (
+                    <div className="meme-item" key={meme.id}>
+                        <img className="meme" src={meme.url} alt="meme" />
+                        <button onClick={() => removeMeme(meme.id)}>
+                            Remove
+                        </button>
+                    </div>
                 ))}
             </div>
         </section>

@@ -5,7 +5,8 @@ export const MemeService = {
     fetchData,
     saveMeme,
     getMemes,
-    displayMessage
+    displayMessage,
+    removeMeme
 }
 
 async function fetchData(url){
@@ -28,6 +29,13 @@ async function saveMeme(meme) {
 async function getMemes() {
     const res = await axios.get(
         'http://localhost:3030/api/meme',
+        { withCredentials: true }
+    )
+    return res.data
+}
+async function removeMeme(id) {
+    const res = await axios.delete(
+        `http://localhost:3030/api/meme/${id}`,
         { withCredentials: true }
     )
     return res.data

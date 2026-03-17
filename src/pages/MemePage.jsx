@@ -28,6 +28,7 @@ export function Meme(){
 
 
 
+
     return(
         <section className="meme-page">
             <button className="meme-btn" onClick={()=>{generateMeme()}}>Click for random meme</button>

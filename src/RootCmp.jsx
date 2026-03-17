@@ -25,7 +25,7 @@ export function RootCmp() {
                 const res = await axios.get('http://localhost:3030/api/auth/me',{ withCredentials: true })
                 dispatch(setUser(res.data))
             } catch (err) {
-                console.log("Not logged in")
+                console.log(err)
             }
         }
         getLoggedInUser()

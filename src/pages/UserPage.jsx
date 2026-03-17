@@ -17,9 +17,11 @@ export function UserPage(){
     const [memes,setMemes] = useState([])
     useEffect(()=>{
         loadMemeGallery()
-    },[])
-    function loadMemeGallery(){
-        const memes = MemeService.loadMemes()
+    },[memes])
+
+    
+    async function loadMemeGallery(){
+        const memes = await MemeService.getMemes()
         setMemes(memes)
     }
     function background(e) {
@@ -39,12 +41,17 @@ export function UserPage(){
         e.preventDefault()
         UserService.saveUserPrefs(prefs)
     }
-    console.log(memes)
+
+    async function removeMeme(memeId) {
+        await MemeService.removeMeme(memeId)
+        MemeService.displayMessage('Meme Has been deleted')
+    }
+
     return(
         <div className="user-page">
-            <header>
+            {/* <header>
                 <h1>Prefernces of {user.username}</h1>
-            </header>
+            </header> */}
             <form className="perefernce-box" onSubmit={(e)=>{savePrefs(e)}}>
                 <label>Color</label>
                 <input type="color" onChange={e=>{color(e)}}/>
@@ -52,7 +59,7 @@ export function UserPage(){
                 <input type="color" onChange={e=>{background(e)}} />
                 <button>done</button>
             </form>
-            <MemeList memes = {memes}/>
+            <MemeList memes = {memes} removeMeme={removeMeme}/>
         </div>
     )
 
