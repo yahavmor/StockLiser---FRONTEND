@@ -1,17 +1,88 @@
-.login-page{
-    margin: 50px;
-    display: grid;
-    grid-template-rows: 1fr 6fr ;
-    place-items: center;
-    background-color: rgb(119, 72, 11);
-    height: 70vh;
-}
-
-.login-page form {
+.login-page {
+    height: 80vh;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
+    padding: 20px;
+    color: white;
 }
-.login-page form input{
-    width: 400px;
+
+.page-header {
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.box-info {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 40px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 380px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    backdrop-filter: blur(6px);
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.box-info input {
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.box-info input::placeholder {
+    color: #dddddd;
+}
+
+.box-info input:focus {
+    background: rgba(255,255,255,0.25);
+    transform: scale(1.02);
+}
+
+.box-info button {
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    background: #00d4ff;
+    color: #1e1e1e;
+    font-weight: 600;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.box-info button:hover {
+    background: #00eaff;
+    transform: translateY(-3px);
+}
+
+.box-info button:last-child {
+    background: transparent;
+    border: 1px solid #ffffff55;
+    color: white;
+}
+
+.box-info button:last-child:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
