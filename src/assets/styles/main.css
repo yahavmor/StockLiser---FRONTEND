@@ -3,6 +3,7 @@
 @import './pages/StockWorld.css';
 @import './pages/Login.css';
 @import './pages/MemePage.css';
+@import './pages/HomePage.css';
 
 /* basics */
 @import './basics/MainLayout.css';
