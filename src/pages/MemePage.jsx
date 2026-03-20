@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { MemeService } from "../services/meme/meme.service"
 import { toggleLoader } from "../store/stock/stock.slice"
 import { Loader } from "../cmps/Loader"
+import { displayMessage } from "../services/util.service"
+
 
 
 
@@ -23,7 +25,7 @@ export function Meme(){
     
     async function onSaveMeme(meme){
         await MemeService.saveMeme(meme)
-        MemeService.displayMessage('Meme Saved')
+        displayMessage('Meme Saved')
     }
 
 

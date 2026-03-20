@@ -5,7 +5,6 @@ export const MemeService = {
     fetchData,
     saveMeme,
     getMemes,
-    displayMessage,
     removeMeme
 }
 
@@ -41,6 +40,4 @@ async function removeMeme(id) {
     return res.data
 }
 
-function displayMessage(msg){
-    console.log(msg)
-}
+

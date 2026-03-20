@@ -4,6 +4,8 @@ import { Loader } from "../cmps/Loader"
 import { useDispatch, useSelector } from "react-redux"
 import { toggleLoader } from "../store/stock/stock.slice"
 import { Navigate } from "react-router-dom"
+import { displayMessage, isProbablySymbol } from "../services/util.service"
+
 
 
 
@@ -19,6 +21,7 @@ export function StockWorld() {
     const [searchTerm, setSearchTerm] = useState('')
     const [searchEnable, setSearchEnable] = useState(false)
     const [stockPrice, setStockPrice] = useState('')
+    const [savedStock, setSavedStock] = useState(false)
 
     function focusInput(){
         inputRef.current?.focus()
@@ -32,7 +35,7 @@ export function StockWorld() {
         e.preventDefault()
         dispatch(toggleLoader(true))
 
-        if (!StockService.isProbablySymbol(searchTerm.toUpperCase())) {
+        if (!isProbablySymbol(searchTerm.toUpperCase())) {
             alert("Not a valid stock symbol format")
             setSearchTerm('')
             dispatch(toggleLoader(false))
@@ -47,13 +50,18 @@ export function StockWorld() {
             dispatch(toggleLoader(false))
             return
         }
-
+        setSavedStock(false)
         setStockPrice(stock)
-        setSearchTerm('')
         dispatch(toggleLoader(false))
     }
      if (!user) {
         return <Navigate to="/login" replace />
+    }
+    async function onSaveStock(stockName,stockPrice){
+        setSavedStock(true)
+        const saved = await StockService.saveStock(stockName.toUpperCase(),stockPrice)
+        displayMessage(`Stock ${stockName} has been saved`)
+        setSearchTerm('')
     }
 
 
@@ -70,7 +78,7 @@ export function StockWorld() {
                     <label>Search any stock:</label>
                     <input 
                         ref={inputRef}
-                        type="text"
+                        ty  pe="text"
                         value={searchTerm}
                         onChange={(e)=>{setSearchTerm(e.target.value)}}
                     />
@@ -82,6 +90,7 @@ export function StockWorld() {
                 {stockPrice&&(
                         <div className="stock-preview">
                         <h3>Current stock price : {stockPrice}$</h3>
+                        {!savedStock&&<button onClick={()=>onSaveStock(searchTerm,stockPrice)}>Insert to follow list</button>}
                         </div>
                     )
                 }

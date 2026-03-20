@@ -5,6 +5,8 @@ import { saveToStorage } from "../services/LocalStorage"
 import { MemeService } from "../services/meme/meme.service"
 import { MemeList } from "../cmps/MemeList"
 import { UserService } from "../services/user/user.service"
+import { displayMessage } from "../services/util.service"
+
 
 
 
@@ -44,7 +46,7 @@ export function UserPage(){
 
     async function removeMeme(memeId) {
         await MemeService.removeMeme(memeId)
-        MemeService.displayMessage('Meme Has been deleted')
+        displayMessage('Meme Has been deleted')
     }
 
 

@@ -6,7 +6,8 @@ const BASE_URL = import.meta.env.PROD
 
 export const StockService = {
     searchStock,
-    isProbablySymbol
+    saveStock
+    
 }
 
 async function searchStock(value){
@@ -23,6 +24,12 @@ async function searchStock(value){
     
 }
 
-function isProbablySymbol(str) {
-  return /^[A-Z]{1,5}$/.test(str);
+async function saveStock(symbol,price){
+    const stock = {symbol,price}
+    const res = await axios.post(
+        'http://localhost:3030/api/stock/save',
+        stock,
+        { withCredentials: true }
+    )
+    return res.data
 }
