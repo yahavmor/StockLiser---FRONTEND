@@ -3,8 +3,9 @@ import { StockService } from "../services/stock/stock.service"
 import { Loader } from "../cmps/Loader"
 import { useDispatch, useSelector } from "react-redux"
 import { toggleLoader } from "../store/stock/stock.slice"
-import { Navigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
 import { displayMessage, isProbablySymbol } from "../services/util.service"
+import { WatchList } from "./watchList"
 
 
 
@@ -15,9 +16,9 @@ import { displayMessage, isProbablySymbol } from "../services/util.service"
 export function StockWorld() {
     const loader = useSelector(state=>state.stockModule.loader)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const inputRef = useRef()
     const user = useSelector(state=>state.userModule.user)
-
     const [searchTerm, setSearchTerm] = useState('')
     const [searchEnable, setSearchEnable] = useState(false)
     const [stockPrice, setStockPrice] = useState('')
@@ -66,8 +67,8 @@ export function StockWorld() {
 
 
     return (
-        <div className="home-page">
-            <header className="home-header">
+        <div className="stock-world">
+            <header className="header">
                 <h1>Welcome to the Stock App</h1>
             </header>
             <main>
@@ -75,7 +76,7 @@ export function StockWorld() {
 
 
                 {(loader?<Loader/>:(<form onSubmit={handleSearch}>
-                    <label>Search any stock:</label>
+                    <label>Search any stock</label>
                     <input 
                         ref={inputRef}
                         ty  pe="text"
@@ -94,6 +95,11 @@ export function StockWorld() {
                         </div>
                     )
                 }
+                <button className="watch-list-btn"
+                    onClick={() => navigate(`/stock/${user._id}`)}>
+                    Your Watch List
+                </button>
+
             </main>
             
         </div>

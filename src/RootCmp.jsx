@@ -9,6 +9,8 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { setUser } from './store/user/user.slice.js'
 import { MemeDetails } from './cmps/MemeDetails.jsx'
+import { WatchList } from './pages/watchList.jsx'
+
 
 
 
@@ -41,6 +43,8 @@ export function RootCmp() {
                     <Route path="/user" element={<UserPage/>}/>  
                     <Route path="/meme" element={<Meme/>}/>
                     <Route path="/meme/:id" element={<MemeDetails/>}/>  
+                    <Route path="/stock/:id" element={<WatchList/>}/>
+
             </Routes>
         </> 
     )

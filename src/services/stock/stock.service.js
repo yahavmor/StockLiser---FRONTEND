@@ -1,4 +1,5 @@
 import axios from "axios"
+import { createRandomId } from "../util.service"
 
 const BASE_URL = import.meta.env.PROD
     ? ''
@@ -6,7 +7,9 @@ const BASE_URL = import.meta.env.PROD
 
 export const StockService = {
     searchStock,
-    saveStock
+    saveStock,
+    loadSavedStocks,
+    removeStock
     
 }
 
@@ -25,11 +28,23 @@ async function searchStock(value){
 }
 
 async function saveStock(symbol,price){
-    const stock = {symbol,price}
+    const stockId = createRandomId() 
+    const stock = {stockId,symbol,price}
     const res = await axios.post(
         'http://localhost:3030/api/stock/save',
         stock,
         { withCredentials: true }
     )
+    return res.data
+}
+async function loadSavedStocks() {
+    const res = await axios.get('http://localhost:3030/api/stock',
+    { withCredentials: true }   
+    )
+    return res.data
+}
+async function removeStock(stockId) {
+    const res = await axios.delete(`http://localhost:3030/api/stock/${stockId}`,
+    { withCredentials: true }) 
     return res.data
 }

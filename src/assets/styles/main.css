@@ -4,6 +4,7 @@
 @import './pages/Login.css';
 @import './pages/MemePage.css';
 @import './pages/HomePage.css';
+@import './pages/watch-list.css';
 
 /* basics */
 @import './basics/MainLayout.css';
