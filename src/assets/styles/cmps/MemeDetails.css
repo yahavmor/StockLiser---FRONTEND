@@ -1,6 +1,8 @@
 .meme-details {
     min-height: 80vh;
     display: flex;
+    flex-direction: column;
+    gap: 50px;
     justify-content: center;
     align-items: center;
     background: linear-gradient(135deg, #1e1e1e, #3a3a3a);

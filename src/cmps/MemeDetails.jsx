@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Navigate, useNavigate, useParams } from "react-router-dom"
 import { MemeService } from "../services/meme/meme.service"
 import { displayMessage } from "../services/util.service"
 import { Loader } from "./Loader"
-
-
-
+import { Card,Button} from "@mui/material";
 
 export function MemeDetails(){
     const params = useParams()
+    const navigate = useNavigate()
     const [meme,setMeme] = useState(null)
     useEffect(()=>{
         onGetMemeById(params.id)
@@ -28,9 +27,15 @@ export function MemeDetails(){
     if(!meme) return <Loader/>
     return (
         <section className="meme-details">
-            <div className="meme-card">
+            <Card className="meme-card">
                 <img src={meme.url} alt="image of meme" />
-            </div>
+            </Card>
+            <Button onClick={()=>navigate('/user')}
+                variant="outlined" 
+                color="error" 
+                sx={{ mt: 2 }}
+                >Go Back
+                </Button>
         </section>
     )
 

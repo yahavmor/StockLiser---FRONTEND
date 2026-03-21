@@ -3,7 +3,6 @@ import { loadFromStorage } from '../../services/LocalStorage'
 
 const initialState = {
   user: loadFromStorage('user-crad'), 
-  prefs: loadFromStorage('user-prefs'),
 }
 
 const userSlice = createSlice({
@@ -16,21 +15,7 @@ const userSlice = createSlice({
     clearUser(state) {
       state.user = null
     },
-    clearPrefs(state){
-      state.prefs = {}
-    },
-    setColor(state, action) {
-      state.prefs = {
-        ...state.prefs,
-        color: action.payload
-      }
-    },
-    setBgcColor(state, action) {
-      state.prefs = {
-        ...state.prefs,
-        bgcColor: action.payload
-      }
-    }
+
 
   }
 })
