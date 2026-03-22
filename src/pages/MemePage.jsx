@@ -24,8 +24,14 @@ export function Meme(){
     }
     
     async function onSaveMeme(meme){
-        await MemeService.saveMeme(meme)
-        displayMessage('Meme Saved')
+        try{
+          const savedMeme = await MemeService.saveMeme(meme)
+          displayMessage('Meme Saved')
+        }
+        catch(err){
+          console.log(err)
+          displayMessage('Meme Has not been saved')
+        }
     }
 
 

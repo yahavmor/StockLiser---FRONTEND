@@ -13,6 +13,7 @@
 @import './cmps/Header.css';
 @import './cmps/MemeList.css';
 @import './cmps/MemeDetails.css';
+@import './cmps/UserMsg.css';
 
 /* vars */
 @import '/src/assets/styles/vars.css';
