@@ -10,8 +10,7 @@ import { useDispatch } from 'react-redux'
 import { setUser } from './store/user/user.slice.js'
 import { MemeDetails } from './cmps/MemeDetails.jsx'
 import { WatchList } from './pages/watchList.jsx'
-
-
+import {UserMsg} from './cmps/UserMsg.jsx'
 
 
 
@@ -36,6 +35,7 @@ export function RootCmp() {
     }, [])
     return (
         <>
+            <UserMsg/>
             <Routes>
                     <Route path="/" element={<HomePage/>} />
                     <Route path="/stock" element={<StockWorld/>} />

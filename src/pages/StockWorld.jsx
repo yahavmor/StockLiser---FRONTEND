@@ -4,8 +4,8 @@ import { Loader } from "../cmps/Loader"
 import { useDispatch, useSelector } from "react-redux"
 import { toggleLoader } from "../store/stock/stock.slice"
 import { Navigate, useNavigate } from "react-router-dom"
-import { displayMessage, isProbablySymbol } from "../services/util.service"
-import { WatchList } from "./watchList"
+import { isProbablySymbol } from "../services/util.service"
+import { showMsg } from "../store/user/msg.slice"
 
 
 
@@ -20,7 +20,6 @@ export function StockWorld() {
     const inputRef = useRef()
     const user = useSelector(state=>state.userModule.user)
     const [searchTerm, setSearchTerm] = useState('')
-    const [searchEnable, setSearchEnable] = useState(false)
     const [stockPrice, setStockPrice] = useState('')
     const [savedStock, setSavedStock] = useState(false)
 
@@ -37,7 +36,7 @@ export function StockWorld() {
         dispatch(toggleLoader(true))
 
         if (!isProbablySymbol(searchTerm.toUpperCase())) {
-            alert("Not a valid stock symbol format")
+            dispatch(showMsg({text:'Please enter a valid symbol',result:false}))
             setSearchTerm('')
             dispatch(toggleLoader(false))
             return
@@ -46,7 +45,7 @@ export function StockWorld() {
         const stock = await StockService.searchStock(searchTerm)
 
         if (!stock) {
-            alert("Pick a real stock")
+            dispatch(showMsg({text:'Please enter a valid symbol',result:false}))
             setSearchTerm('')
             dispatch(toggleLoader(false))
             return
@@ -59,11 +58,17 @@ export function StockWorld() {
         return <Navigate to="/login" replace />
     }
     async function onSaveStock(stockName,stockPrice){
-        setSavedStock(true)
+        try{
         const saved = await StockService.saveStock(stockName.toUpperCase(),stockPrice)
-        displayMessage(`Stock ${stockName} has been saved`)
-        setSearchTerm('')
-    }
+        setSavedStock(true)
+        dispatch(showMsg({text:'Added to your watch list',result:true}))
+        }
+        catch(err){
+            console.log(err)
+            dispatch(showMsg({text:'Stock doest not added to your watch list',result:false}))
+        }
+    setSearchTerm('')
+}
 
 
     return (

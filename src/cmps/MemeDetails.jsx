@@ -4,26 +4,15 @@ import { MemeService } from "../services/meme/meme.service"
 import { displayMessage } from "../services/util.service"
 import { Loader } from "./Loader"
 import { Card,Button} from "@mui/material";
-import { UserMsg } from "./userMsg"
 
 export function MemeDetails(){
     const params = useParams()
     const navigate = useNavigate()
     const [meme,setMeme] = useState(null)
-    const [userMsg, setUserMsg] = useState(null)
 
     useEffect(()=>{
         onGetMemeById(params.id)
     },[])
-    useEffect(() => {
-        if (!userMsg) return
-
-        const timer = setTimeout(() => {
-            setUserMsg(null)
-        }, 3000)
-
-        return () => clearTimeout(timer)
-    }, [userMsg])
     async function onGetMemeById(memeId){
         try{
             const chosenMeme = await MemeService.getMemeById(memeId)
@@ -48,8 +37,6 @@ export function MemeDetails(){
                 sx={{ mt: 2 }}
                 >Go Back
             </Button>
-            {userMsg&&<UserMsg msg={userMsg.msg} result={userMsg.result}/>}
         </section>
     )
-
 }

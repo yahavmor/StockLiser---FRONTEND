@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { setBgcColor, setColor } from "../store/user/user.slice"
 import { saveToStorage } from "../services/LocalStorage"
 import { MemeService } from "../services/meme/meme.service"
 import { MemeList } from "../cmps/MemeList"
 import { displayMessage } from "../services/util.service"
+import { showMsg } from "../store/user/msg.slice"
 
 
 
@@ -26,11 +26,16 @@ export function UserPage(){
     
 
     async function removeMeme(memeId) {
-        await MemeService.removeMeme(memeId)
-        displayMessage('Meme Has been deleted')
+        try{
+            const removedMeme = await MemeService.removeMeme(memeId)
+            dispatch(showMsg({ text: "Meme Has been deleted", result: true }))
+        }
+        catch(err){
+            console.log(err)
+            dispatch(showMsg({ text: "Meme Has not been deleted", result: false }))
+        }
     }
-
-
+    
     return(
         <div className="user-page">
             <MemeList memes = {memes} removeMeme={removeMeme}/>

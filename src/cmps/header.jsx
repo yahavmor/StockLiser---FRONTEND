@@ -1,9 +1,11 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, NavLink, redirect, useNavigate } from 'react-router-dom'
-import { clearUser, setUser, clearPrefs } from "../store/user/user.slice.js"
 import { removeFromStorage } from "../services/LocalStorage.js"
 import { AuthService } from "../services/auth/auth.service.js"
+import { clearUser } from "../store/user/user.slice.js"
+import { showMsg } from "../store/user/msg.slice.js"
+
 
 
 
@@ -14,14 +16,19 @@ export function Header(){
     const user = useSelector(state=>state.userModule.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    function logOut(){
-        dispatch(clearUser())
-        dispatch(clearPrefs())
-        AuthService.logOut()
-        removeFromStorage('user-crad')
-        document.documentElement.style.setProperty('--bg-color', '')
-        document.documentElement.style.setProperty('--main-color', '')
-        navigate('/')
+    async function logOut(){
+        try{
+            const loggedOutUser = await AuthService.logOut()
+            dispatch(clearUser())
+            removeFromStorage('user-crad')
+            navigate('/')
+            dispatch(showMsg({text:"User has logged out",result:true}))
+        }
+        catch(err){
+            console.log(err)
+            dispatch(showMsg({text:"User has not logged out",result:false}))
+        }
+
     }
     return(
         <>

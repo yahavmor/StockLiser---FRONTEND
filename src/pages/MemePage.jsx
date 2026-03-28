@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { MemeService } from "../services/meme/meme.service"
 import { toggleLoader } from "../store/stock/stock.slice"
 import { Loader } from "../cmps/Loader"
-import { displayMessage } from "../services/util.service"
+import { showMsg } from "../store/user/msg.slice"
 
 
 
@@ -14,7 +14,6 @@ export function Meme(){
     const dispatch = useDispatch()
     const loader = useSelector(state=>state.stockModule.loader)
     const user = useSelector(state=>state.userModule.user)
-    
 
     async function generateMeme(){
         dispatch(toggleLoader(true))
@@ -26,16 +25,11 @@ export function Meme(){
     async function onSaveMeme(meme){
         try{
           const savedMeme = await MemeService.saveMeme(meme)
-          displayMessage('Meme Saved')
-        }
+          dispatch(showMsg({ text: "Meme has been saved", result: true }))}
         catch(err){
           console.log(err)
-          displayMessage('Meme Has not been saved')
-        }
+          dispatch(showMsg({ text: "Meme has not been saved", result: false }))}
     }
-
-
-
 
     return(
         <section className="meme-page">

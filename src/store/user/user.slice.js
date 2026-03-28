@@ -13,12 +13,12 @@ const userSlice = createSlice({
       state.user = action.payload
     },
     clearUser(state) {
-      state.user = null
+      state.user = undefined
     },
 
 
   }
 })
 
-export const { setUser, clearUser, setColor, setBgcColor, clearPrefs } = userSlice.actions
+export const { setUser, clearUser } = userSlice.actions
 export default userSlice.reducer

@@ -3,11 +3,14 @@ import { useParams } from "react-router-dom"
 import { displayMessage } from "../services/util.service"
 import { StockService } from "../services/stock/stock.service"
 import { Card, CardContent, Typography, Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { showMsg } from "../store/user/msg.slice";
 
 
 
 export function WatchList(){
     const params = useParams()
+    const dispatch = useDispatch()
     const userId = params.id
     const [stocks,setStocks] = useState([])
     useEffect(()=>{
@@ -17,22 +20,22 @@ export function WatchList(){
         try{
             const savedStocks = await StockService.loadSavedStocks()
             setStocks(savedStocks)
-            displayMessage('watch list loaded')
+            dispatch(showMsg({text:"Watch list has been loaded",result:true}))
         }
         catch(err){
             console.log(err)
-            displayMessage('watch list load failed')
+            dispatch(showMsg({text:"Watch list has not been loaded",result:false}))
         }
     }
     async function onRemoveStock(stockId){
         try{
             await StockService.removeStock(stockId)
             setStocks(prev => prev.filter(stock => stock.stockId !== stockId))
-            displayMessage('Stock has been removed')
+            dispatch(showMsg({text:"Stock has been removed",result:true}))
         }
         catch(err){
             console.log(err)
-            displayMessage('remove operation has failed')
+            dispatch(showMsg({text:"Stock has not been removed",result:false}))
         }
     }
     if (!stocks.length) return <div className="empty-watchlist">No stocks in your watch list</div>
