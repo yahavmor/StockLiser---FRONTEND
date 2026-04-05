@@ -9,6 +9,10 @@ export const MemeService = {
     getMemeById
 }
 
+const BASE_URL = import.meta.env.DEV
+  ? "http://localhost:3030/api/"
+  : "https://backend-stock-sv6k.onrender.com/api/";
+
 async function fetchData(url){
     const res = await axios.get(url)
     return {
@@ -19,8 +23,8 @@ async function fetchData(url){
 
 async function saveMeme(meme) {
     const res = await axios.post(
-        'http://localhost:3030/api/meme/save',
-        meme, 
+        BASE_URL + "meme/save",
+        meme,
         { withCredentials: true }
     )
     return res.data
@@ -28,24 +32,24 @@ async function saveMeme(meme) {
 
 async function getMemes() {
     const res = await axios.get(
-        'http://localhost:3030/api/meme',
+        BASE_URL + "meme",
         { withCredentials: true }
     )
     return res.data
 }
+
 async function removeMeme(id) {
     const res = await axios.delete(
-        `http://localhost:3030/api/meme/${id}`,
+        BASE_URL + `meme/${id}`,
         { withCredentials: true }
     )
     return res.data
 }
+
 async function getMemeById(id) {
     const res = await axios.get(
-        `http://localhost:3030/api/meme/${id}`,
+        BASE_URL + `meme/${id}`,
         { withCredentials: true }
     )
     return res.data
 }
-
-
