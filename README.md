@@ -3,12 +3,11 @@ StockLiser – Modern Full‑Stack Stocks & Memes App end‑to‑end React, Redu
 Database: MongoDB.
 
 StockLiser is a unique web application that combines **stock market tools** with a fun **meme gallery** experience.  
-Users can search stocks in real‑time, save them to a personal watchlist, generate memes, and manage a private meme collection.
+Users can search stocks in real‑time, save them to a personal watchlist, generate memes, and manage a private meme collection. 
+
+
 <img width="1662" height="906" alt="image" src="https://github.com/user-attachments/assets/67f936d0-fc88-4c2c-81b8-e6be49568d37" />
 
-# 🔗 **Links**
-- **Live App:** https://backend-stock-sv6k.onrender.com/  
-- **Backend Repository:** https://github.com/yahavmor/StockLiser---BACKEND  
 
 
 # 📦 **Project Setup**
